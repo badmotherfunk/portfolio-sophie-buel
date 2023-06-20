@@ -7,97 +7,118 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/b5aeac9446.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="script.js"></script>
 </head>
 <body>
-<header>
-	<!-- Modal login-->
+	<!-- Bandeau en tête -->
 
-	<!-- <div class="modal-container">
-		<div class="overlay modal-trigger"></div>
-		<div class="modal">
-			<h2 class="modal-title">Log In</h2>
-			<label class="input-title" for="email">E-mail</label>
-			<input class="input-connexion" type="email" id="email">
-			<label class="input-title" for="password">Mot de passe</label>
-			<input class="input-connexion" type="password" id="password">
-			<div class="btn-container">
-				<button class="btn-connexion" >Se connecter</button>
-				<a href="#">Mot de passe oublié</a>
+	<div class="headBand">
+		<div class="editionMode">
+			<i class="fa-regular fa-pen-to-square"></i>
+			<p class="edition-text">Mode édition</p>
+		</div>
+		<div class="buttonEdition">
+			<button class="btn-edition">publier les changements</button>
+		</div>
+
+	</div>
+			<!-- Modal Galerie-->
+		
+		<div class="modal-container">
+			<div class="overlay modal-trigger"></div>
+			<div class="modal">
+				<i class="fa-solid fa-xmark modal-trigger"></i>
+				<h3 class="modal-title">Galerie Photo</h3>
+					<div class="modal-gallery"></div>
+				<hr></hr>
+				<div class="btn-modal-container">
+					<button class="btn-modal" >Ajouter une photo</button>
+					<p class="delete-gallery">Supprimer la galerie</p>
+				</div>
 			</div>
 		</div>
-	</div> -->
 
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
-	<nav>
-		<ul>
-			<a href="index.html">
-				<li>projets</li>
-			</a>
-			<a href="#contact">
-				<li>contact</li>
-			</a>
-			<a href="logIn.html">
-				<li class="modal-btn modal-trigger">login</li>
-			</a>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
-</header>
-<main>
-	<section id="introduction">
-		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-		</figure>
-		<article>
-			<h2>Designer d'espace</h2>
-			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
-			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
-		</article>
-	</section>
-	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div class="btn-filter">
-			<a class="btn-link" data-categoryid="0" href="#">
-				<div class="tous">Tous</div>
-			</a>
-			<a class="btn-link" data-categoryid="1" href="#">
-			<div class="objets">Objets</div>
-			</a>
-			<a class="btn-link" data-categoryid="2" href="#">
-				<div class="appartements">Appartement</div>
-			</a>
-			<a class="btn-link" data-categoryid="3" href="#">
-				<div class="hotels">Hôtels & Restaurants</div>
-			</a>
-		</div>
-		<div class="gallery">
-		</div>
-	</section>
-	<section id="contact">
-		<h2>Contact</h2>
-		<p>Vous avez un projet ? Discutons-en !</p>
-		<form action="#" method="post">
-			<label for="name">Nom</label>
-			<input type="text" name="name" id="name">
-			<label for="email">Email</label>
-			<input type="email" name="email" id="email">
-			<label for="message">Message</label>
-			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer">
-		</form>
-	</section>
-</main>
+<div class="main-container">
 
-<footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
+	<header>	
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+		<nav>
+			<ul>
+				<a href="index.html">
+					<li>projets</li>
+				</a>
+				<a href="#contact">
+					<li>contact</li>
+				</a>
+				<a href="logIn.html">
+					<li class="logIn">login</li>
+				</a>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section id="introduction">
+			<figure>
+				<img src="./assets/images/sophie-bluel.png" alt="">
+			</figure>
+			<article>
+				<h2>Designer d'espace</h2>
+				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+				<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+			</article>
+		</section>
+		<section id="portfolio">
+			<div class="myProject">
+				<h2>Mes Projets</h2>
+				<div class="modify-container modal-trigger">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<p class="modify">modifier</p>
+				</div>
+			</div>
+			<div class="btn-filter">
+				<a class="btn-link" data-categoryid="0" href="#">
+					<div class="tous">Tous</div>
+				</a>
+				<a class="btn-link" data-categoryid="1" href="#">
+					<div class="objets">Objets</div>
+				</a>
+				<a class="btn-link" data-categoryid="2" href="#">
+					<div class="appartements">Appartement</div>
+				</a>
+				<a class="btn-link" data-categoryid="3" href="#">
+					<div class="hotels">Hôtels & Restaurants</div>
+				</a>
+			</div>
+			<div class="gallery">
+			</div>
+		</section>
+		<section id="contact">
+			<h2>Contact</h2>
+			<p>Vous avez un projet ? Discutons-en !</p>
+			<form action="#" method="post">
+				<label for="name">Nom</label>
+				<input type="text" name="name" id="name">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
+				<label for="message">Message</label>
+				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+				<input type="submit" value="Envoyer">
+			</form>
+		</section>
+	</main>
+	
+	<footer>
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
+</div>
 </body>
 </html>
