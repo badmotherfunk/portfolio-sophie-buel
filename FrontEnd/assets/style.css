@@ -203,8 +203,8 @@ li:hover {
 	border-radius: 10px;
 	transition: opacity 0.4s ease-out,
 	transform 0.4s ease-out;
-	overflow: scroll;
-	scrollbar-width: thin;
+	/* overflow: scroll;
+	scrollbar-width: thin; */
 }
 
 .modal-container.active .modal {
@@ -234,10 +234,47 @@ li:hover {
 	gap: 10px;
 	margin-bottom: 40px;
 }
-.modal-gallery img {
+
+.galleryImg {
 	width: 76px;
 	height: auto;
 }
+
+.divGallery {
+	position: relative;
+}
+
+.fa-arrows-up-down-left-right {
+	position: absolute;
+	top: 5px;
+	right: 20px;
+	background-color: #000000;
+	color: #FFFFFF;
+	font-size: 8px;
+	padding: 3px;
+	border-radius: 2px;
+	cursor: pointer;
+	opacity: 0;
+}
+
+.divGallery:hover .fa-arrows-up-down-left-right{
+	opacity: 1;
+}
+
+.fa-trash-can {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 8px;
+	background-color: #000000;
+	border-radius: 2px;
+	color: #FFFFFF;
+	cursor: pointer;
+	padding: 3px;
+	
+	/* opacity: 0; */
+}
+
 
 .fa-xmark {
 	position: absolute;

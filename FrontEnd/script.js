@@ -8,14 +8,7 @@ const buttonObjects = document.querySelector(".objets");
 const buttonAppartment = document.querySelector(".appartements");
 const buttonHostel = document.querySelector(".hotels");
 
-// // Prévient le comportement par défaut de chaque bouton filtre
-// filterLink.forEach( function(i) {
-//     i.addEventListener("click", function(event) {
-//         event.preventDefault();
-//         console.log(filterLink);
-//     })
-// })
-
+// Pour chaque bouton on filtre les projets en fonction de leurs Id
 filterLink.forEach( function (i) {
     i.addEventListener("click", function (event) {
         event.preventDefault();
@@ -31,10 +24,6 @@ filterLink.forEach( function (i) {
         document.querySelector(".gallery").innerHTML = "";
         allWorks();
         generateWorks(filtered);
-        console.log(typeof +i.dataset.categoryid)
-        console.log(+i.dataset.categoryid)
-        console.log(works);
-        console.log(allWorks)
     });
 
 })
@@ -71,38 +60,7 @@ function generateWorks(works) {
 generateWorks(works);
 
 
-// // Trier par objets
-// buttonObjects.addEventListener("click", function() {
-//     const filteredObjects = works.filter(function (object) {
-//         return object.category.id === 1;
-//     });
-//     document.querySelector(".gallery").innerHTML = "";
-//     generateWorks(filteredObjects);
-//     console.log(filteredObjects)
-// })
-
-// Trier par appartements
-buttonAppartment.addEventListener("click", function() {
-    const filteredAppartment = works.filter(function (appartement) {
-        return appartement.category.id === 2;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    generateWorks(filteredAppartment);
-})
-
-// Trier par hotels & restaurants
-
-buttonHostel.addEventListener("click", function() {
-    const filteredHostel = works.filter(function (hostel) {
-        return hostel.category.id === 3;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    generateWorks(filteredHostel);
-})
-
-
 // Si l'utilisateur est connecté alors on ajoute des éléments à la page
-
 const getData = JSON.parse(localStorage.getItem('dataForm'));
 
 function userConnected() {
@@ -123,11 +81,10 @@ function userConnected() {
 userConnected();
 
 
-// Toggle modale Gallery
-
+// Toggle modale Gallerie
 const modalContainer = document.querySelector(".modal-container");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
-const modalBtn = document.querySelector(".modal-btn");
+// const modalBtn = document.querySelector(".modal-btn");
 
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
@@ -136,6 +93,8 @@ function toggleModal() {
    modalBtn.classList.toggle("active");
 }
 
+
+// Générer les projets dans la gallerie
 function generateModalGallery(works) {
     for (let i = 0; i < works.length; i++) {
 
@@ -145,20 +104,34 @@ function generateModalGallery(works) {
 
         const workElement = document.createElement("figure");
 
+        const divElement = document.createElement("div");
+        divElement.className += "divGallery";
+
         const imageElement = document.createElement("img");
         imageElement.src = article.imageUrl;
+        imageElement.className += "galleryImg";
+
+        const iconCross = document.createElement('icon');
+        iconCross.className += "fa-solid fa-arrows-up-down-left-right";
+
+        const iconTrash = document.createElement("icon");
+        iconTrash.className += "fa-solid fa-trash-can";
+
+
 
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = "éditer";
 
         
         modalGallery.appendChild(workElement);
-        workElement.appendChild(imageElement);
+        workElement.appendChild(divElement);       
+        divElement.appendChild(imageElement);
+        divElement.appendChild(iconCross);
+        divElement.appendChild(iconTrash);
+        // workElement.appendChild(iconeElement);
         workElement.appendChild(titleElement);
     }
 }
 generateModalGallery(works);
-
-// Modal bouton croix
 
 
