@@ -84,22 +84,31 @@ userConnected();
 // Toggle modale Gallerie
 const modalContainer = document.querySelector(".modal-container");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
-// const modalBtn = document.querySelector(".modal-btn");
 
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
 function toggleModal() {
    modalContainer.classList.toggle("active");
-   modalBtn.classList.toggle("active");
+}
+
+const addImage = document.querySelector(".btn-modal");
+const modalImage = document.querySelector(".modal-container-image");
+
+addImage.addEventListener("click", toggleModalImage);
+
+function toggleModalImage(e) {
+    e.preventDefault();
+    modalImage.classList.toggle("active");
 }
 
 
-// Générer les projets dans la gallerie
+
+// Générer les projets dans la galerie
 function generateModalGallery(works) {
     for (let i = 0; i < works.length; i++) {
 
         const article = works[i];
-        
+
         const modalGallery = document.querySelector('.modal-gallery');
 
         const workElement = document.createElement("figure");
@@ -117,21 +126,43 @@ function generateModalGallery(works) {
         const iconTrash = document.createElement("icon");
         iconTrash.className += "fa-solid fa-trash-can";
 
-
-
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = "éditer";
 
-        
         modalGallery.appendChild(workElement);
-        workElement.appendChild(divElement);       
+        workElement.appendChild(divElement);
         divElement.appendChild(imageElement);
         divElement.appendChild(iconCross);
         divElement.appendChild(iconTrash);
-        // workElement.appendChild(iconeElement);
         workElement.appendChild(titleElement);
+        
+
+        // Supprimer un projet depuis la galerie
+        iconTrash.addEventListener("click", async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const getData = JSON.parse(localStorage.getItem('dataForm'));
+            const iconTrash = article.id;
+            let myToken = getData.token;
+            console.log(iconTrash);
+            console.log(myToken);
+            const response = await fetch(
+                `http://localhost:5678/api/works/${iconTrash}`, {
+                method: "DELETE",
+                headers: {
+                    accept: "*/*",
+                    Authorization: `Bearer ${myToken}`,
+                },
+            });
+            // if (response.ok) {
+            //     return false;
+            // } else {
+            //     alert("Echec de suppression");
+            // }
+        });
     }
 }
 generateModalGallery(works);
+
 
 

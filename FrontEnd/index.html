@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/b5aeac9446.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
@@ -38,6 +38,40 @@
 					<button class="btn-modal" >Ajouter une photo</button>
 					<p class="delete-gallery">Supprimer la galerie</p>
 				</div>
+			</div>
+		</div>
+		<div class="modal-container-image">
+			<div class="addImageModal">
+				<i class="fa-solid fa-arrow-left"></i>
+				<i class="fa-solid fa-xmark modal-trigger"></i>
+				<h3 class="modal-title">Ajout photo</h3>
+				<div class="container-addImage">
+					<i class="fa-regular fa-image"></i>
+					<form action="">
+						<input id="btn-image" type="file" class="addImage-btn">
+						<label class="button-image" for="btn-image">+ Ajouter photo</label>
+					</form>
+					<p>jpg, png : 4mo max</p>
+				</div>
+				<div class="container-input">
+					<form class="form-add-image" action="">
+						<label class="label-title-image" for="title-added-image">Titre</label>
+						<input id="title-added-image" type="text">
+						<label class="label-image-category" for="image-category">Catégorie</label>
+						<select id="image-category">
+							<option value="">
+							<option value="object">Objets
+							<option value="flat">Appartements
+							<option value="hostel">Hôtels & restaurants
+						</select>
+						<div class="container-image-button">
+							<hr>
+							<button class="add-image-button">Valider</button>
+						</div>
+					</form>
+				</div>
+
+				
 			</div>
 		</div>
 
