@@ -81,7 +81,7 @@ function userConnected() {
 userConnected();
 
 
-// Toggle modale Gallerie
+// Toggle modale Galerie
 const modalContainer = document.querySelector(".modal-container");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
 
@@ -91,14 +91,16 @@ function toggleModal() {
    modalContainer.classList.toggle("active");
 }
 
-const addImage = document.querySelector(".btn-modal");
+// Toggle modale ajout photo
 const modalImage = document.querySelector(".modal-container-image");
+const addImage = document.querySelectorAll(".trigger-modale-image");
 
-addImage.addEventListener("click", toggleModalImage);
+addImage.forEach(trigger => trigger.addEventListener("click", toggleModalImage))
 
 function toggleModalImage(e) {
     e.preventDefault();
     modalImage.classList.toggle("active");
+    modalContainer.classList.toggle("active");
 }
 
 

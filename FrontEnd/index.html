@@ -35,20 +35,21 @@
 					<div class="modal-gallery"></div>
 				<hr></hr>
 				<div class="btn-modal-container">
-					<button class="btn-modal" >Ajouter une photo</button>
+					<button class="btn-modal trigger-modale-image" >Ajouter une photo</button>
 					<p class="delete-gallery">Supprimer la galerie</p>
 				</div>
 			</div>
 		</div>
 		<div class="modal-container-image">
+			<div class="overlay trigger-modale-image"></div>
 			<div class="addImageModal">
-				<i class="fa-solid fa-arrow-left"></i>
-				<i class="fa-solid fa-xmark modal-trigger"></i>
+				<i class="fa-solid fa-arrow-left trigger-modale-image"></i>
+				<i class="fa-solid fa-xmark modal-trigger trigger-modale-image"></i>
 				<h3 class="modal-title">Ajout photo</h3>
 				<div class="container-addImage">
 					<i class="fa-regular fa-image"></i>
 					<form action="">
-						<input id="btn-image" type="file" class="addImage-btn">
+						<input id="btn-image" type="file" class="addImage-btn" required>
 						<label class="button-image" for="btn-image">+ Ajouter photo</label>
 					</form>
 					<p>jpg, png : 4mo max</p>
@@ -56,13 +57,13 @@
 				<div class="container-input">
 					<form class="form-add-image" action="">
 						<label class="label-title-image" for="title-added-image">Titre</label>
-						<input id="title-added-image" type="text">
+						<input id="title-added-image" type="text" value="" required>
 						<label class="label-image-category" for="image-category">Catégorie</label>
-						<select id="image-category">
+						<select id="image-category" required>
 							<option value="">
-							<option value="object">Objets
-							<option value="flat">Appartements
-							<option value="hostel">Hôtels & restaurants
+							<option data-categoryid="1" value="Objets">Objets
+							<option data-categoryid="2" value="Appartements">Appartements
+							<option data-categoryid="3" value="Hotels & restaurants">Hôtels & restaurants
 						</select>
 						<div class="container-image-button">
 							<hr>
