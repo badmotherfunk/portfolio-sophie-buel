@@ -1,5 +1,4 @@
 const loginForm = document.querySelector(".form-container");
-
 loginForm.addEventListener("submit", sendForm);
 
 async function sendForm(event) {
@@ -16,27 +15,18 @@ async function sendForm(event) {
         },
         body: jsonData
     })
+    console.log(response);
     const result = await response.json();
     console.log(result.token);
-    
-    // Transforme l'objet de la requête en chaine de caractère
-    let resultStringified = JSON.stringify(result);
 
     // Enregistre la réponse dans le local storage
-    localStorage.setItem('dataForm', resultStringified);
-
-    // Transforme en objet et récupère l'userId et le token du local storage 
-    const getData = JSON.parse(localStorage.getItem('dataForm'));
-    console.log(getData.userId);
-
+    localStorage.setItem('token', result.token);
+    console.log(response);
 
     // Vérification de la connexion utilisateur
     try {
-        if(getData.userId === 1) {
-            function redirectionLogIn(){
+        if(response.status === 200) {
                 document.location.href="index.html"; 
-              }
-              redirectionLogIn();
         } else {
             throw new Error("mauvais identifiants");
         } 

@@ -124,7 +124,6 @@ h1{
 	font-size: 22px;
 	font-weight: 800;
 	color: #B1663C;
-	z-index: 99;
 }
 
 h1 > span {
@@ -402,6 +401,15 @@ hr {
 	border-radius: 3px;
 }
 
+.display-image {
+	position: absolute;
+	width: 200px;
+	height: 180px;
+	background-size: 100%;
+	background-position: center;
+	z-index: -1;
+}
+
 .fa-image {
 	color: #B9C5CC;
 	font-size: 55px;
@@ -439,6 +447,7 @@ input[type=file] {
 }
 
 /* Section input add image */
+
 
 .container-input {
 	font-family: 'Work Sans';
@@ -484,7 +493,9 @@ select {
 select, option {
 	font-family: 'Work Sans';
 	font-size: 14px;
+	font-style: italic;
 }
+
 
 .container-image-button {
 	display: flex;

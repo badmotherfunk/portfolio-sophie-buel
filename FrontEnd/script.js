@@ -61,10 +61,12 @@ generateWorks(works);
 
 
 // Si l'utilisateur est connecté alors on ajoute des éléments à la page
-const getData = JSON.parse(localStorage.getItem('dataForm'));
+const myToken = localStorage.getItem('token');
+console.log(myToken);
+
 
 function userConnected() {
-    if(getData.token = localStorage) {
+    if(myToken === localStorage.token) {
 
         const banner = document.querySelector('.headBand');
         banner.classList.add('active');
@@ -95,7 +97,7 @@ function toggleModal() {
 const modalImage = document.querySelector(".modal-container-image");
 const addImage = document.querySelectorAll(".trigger-modale-image");
 
-addImage.forEach(trigger => trigger.addEventListener("click", toggleModalImage))
+addImage.forEach(trigger => trigger.addEventListener("click", toggleModalImage));
 
 function toggleModalImage(e) {
     e.preventDefault();
@@ -143,9 +145,7 @@ function generateModalGallery(works) {
         iconTrash.addEventListener("click", async (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const getData = JSON.parse(localStorage.getItem('dataForm'));
             const iconTrash = article.id;
-            let myToken = getData.token;
             console.log(iconTrash);
             console.log(myToken);
             const response = await fetch(
@@ -156,15 +156,109 @@ function generateModalGallery(works) {
                     Authorization: `Bearer ${myToken}`,
                 },
             });
-            // if (response.ok) {
-            //     return false;
-            // } else {
-            //     alert("Echec de suppression");
-            // }
         });
     }
 }
 generateModalGallery(works);
+
+
+// Envoyer nouveau projet
+
+const sendFormImage = document.querySelector(".form-add-image");
+sendFormImage.addEventListener("submit", sendNewWork);
+
+async function sendNewWork(event) {
+    event.preventDefault();
+
+    const imageData = document.querySelector(".addImage-btn");
+    const titleData = document.querySelector("#title-added-image").value;
+    const objectData = document.querySelector("#image-category").value;
+    const newDataObject = parseInt(objectData);
+
+    const newImage = imageData.files[0];
+    console.log(newImage);
+
+    // Test si la taille du fichier est trop volumineux   
+    if(newImage.size > 4e+6){
+        alert("Le fichier est trop volumineux!");
+    };
+
+
+    const formData = new FormData();
+
+    formData.append("image", newImage);
+    formData.append("title", titleData);
+    formData.append("category", newDataObject);
+
+    // const data = Object.fromEntries(formData);
+    // console.log(data);
+
+    for (var key of formData.entries()) {
+        console.log(key[0] + ', ' + key[1])
+    }
+    
+
+ const response = await fetch('http://localhost:5678/api/works', {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${myToken}`,
+        },
+        body: formData,
+    });
+    const result = await response.json();
+    console.log(result);
+
+
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(imageData);
+    workElement.appendChild(img);
+    
+    // // Transforme l'objet de la requête en chaine de caractère
+    // let resultStringified = JSON.stringify(result);
+
+    // // Enregistre la réponse dans le local storage
+    // localStorage.setItem('dataForm', resultStringified);
+
+    // // Transforme en objet et récupère l'userId et le token du local storage 
+    // const getData = JSON.parse(localStorage.getItem('dataForm'));
+    // console.log(getData.userId);
+
+
+    // Vérification de la connexion utilisateur
+    // try {
+    //     if(getData.userId === 1) {
+    //             document.location.href="index.html"; 
+    //     } else {
+    //         throw new Error("mauvais identifiants");
+    //     } 
+    // } catch (error) {
+    //     window.alert("Erreur dans l’identifiant ou le mot de passe");
+    // }
+}
+sendNewWork();
+
+
+// Afficher le fichier sélectionné dans la modale photo
+
+const image_input = document.querySelector(".addImage-btn");
+let uploaded_image = "";
+
+image_input.addEventListener("change", function() {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+        uploaded_image = reader.result;
+        document.querySelector(".display-image").style.backgroundImage = `url(${uploaded_image})`;
+        document.querySelector(".display-image").style.zIndex = 2;
+    });
+    reader.readAsDataURL(this.files[0]);
+})
+console.log(uploaded_image);
+
+
+
+
+
+
 
 
 

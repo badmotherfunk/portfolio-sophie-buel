@@ -47,27 +47,28 @@
 				<i class="fa-solid fa-xmark modal-trigger trigger-modale-image"></i>
 				<h3 class="modal-title">Ajout photo</h3>
 				<div class="container-addImage">
+					<div class="display-image"></div>
 					<i class="fa-regular fa-image"></i>
-					<form action="">
-						<input id="btn-image" type="file" class="addImage-btn" required>
+					
+					<form class="form-add-image" action="http://localhost:5678/api/works" method="post">
+						<input id="btn-image" type="file" accept="image/png, image/jpg" name="imageUrl" class="addImage-btn" required>
 						<label class="button-image" for="btn-image">+ Ajouter photo</label>
-					</form>
+
 					<p>jpg, png : 4mo max</p>
 				</div>
 				<div class="container-input">
-					<form class="form-add-image" action="">
 						<label class="label-title-image" for="title-added-image">Titre</label>
-						<input id="title-added-image" type="text" value="" required>
+						<input id="title-added-image" type="text" name="title" required>
 						<label class="label-image-category" for="image-category">Catégorie</label>
 						<select id="image-category" required>
-							<option value="">
-							<option data-categoryid="1" value="Objets">Objets
-							<option data-categoryid="2" value="Appartements">Appartements
-							<option data-categoryid="3" value="Hotels & restaurants">Hôtels & restaurants
+							<option disabled selected>Sélectionnez une catégorie</option>
+							<option name="Objets" value="1">Objets
+							<option name="Appartements" value="2">Appartements
+							<option name="Hotels & restaurants" value="3">Hôtels & restaurants
 						</select>
 						<div class="container-image-button">
 							<hr>
-							<button class="add-image-button">Valider</button>
+							<button type="submit" class="add-image-button">Valider</button>
 						</div>
 					</form>
 				</div>
