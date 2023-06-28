@@ -46,34 +46,32 @@
 				<i class="fa-solid fa-arrow-left trigger-modale-image"></i>
 				<i class="fa-solid fa-xmark modal-trigger trigger-modale-image"></i>
 				<h3 class="modal-title">Ajout photo</h3>
-				<div class="container-addImage">
-					<div class="display-image"></div>
-					<i class="fa-regular fa-image"></i>
-					
-					<form class="form-add-image" action="http://localhost:5678/api/works" method="post">
+				<form class="form-add-image" action="http://localhost:5678/api/works" method="post">
+					<div class="container-addImage">
+						<div class="display-image"></div>
+						<i class="fa-regular fa-image"></i>
 						<input id="btn-image" type="file" accept="image/png, image/jpg" name="imageUrl" class="addImage-btn" required>
 						<label class="button-image" for="btn-image">+ Ajouter photo</label>
 
-					<p>jpg, png : 4mo max</p>
-				</div>
-				<div class="container-input">
-						<label class="label-title-image" for="title-added-image">Titre</label>
-						<input id="title-added-image" type="text" name="title" required>
-						<label class="label-image-category" for="image-category">Catégorie</label>
-						<select id="image-category" required>
-							<option disabled selected>Sélectionnez une catégorie</option>
-							<option name="Objets" value="1">Objets
-							<option name="Appartements" value="2">Appartements
-							<option name="Hotels & restaurants" value="3">Hôtels & restaurants
-						</select>
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<p class="errorMessage"></p>
+					<div class="container-input">
+							<label class="label-title-image" for="title-added-image">Titre</label>
+							<input id="title-added-image" type="text" name="title" maxlength="50" required>
+							<label class="label-image-category" for="image-category">Catégorie</label>
+							<select id="image-category" required>
+								<option disabled selected>- Sélectionnez une catégorie -</option>
+								<option name="Objets" value="1">Objets
+								<option name="Appartements" value="2">Appartements
+									<option name="Hotels & restaurants" value="3">Hôtels & restaurants
+							</select>
 						<div class="container-image-button">
 							<hr>
 							<button type="submit" class="add-image-button">Valider</button>
 						</div>
-					</form>
-				</div>
-
-				
+					</div>			
+				</form>
 			</div>
 		</div>
 

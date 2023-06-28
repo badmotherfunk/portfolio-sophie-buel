@@ -8,6 +8,9 @@ const buttonObjects = document.querySelector(".objets");
 const buttonAppartment = document.querySelector(".appartements");
 const buttonHostel = document.querySelector(".hotels");
 
+const divGallery = document.querySelector(".gallery");
+const modalGallery = document.querySelector('.modal-gallery');
+
 // Pour chaque bouton on filtre les projets en fonction de leurs Id
 filterLink.forEach( function (i) {
     i.addEventListener("click", function (event) {
@@ -62,8 +65,6 @@ generateWorks(works);
 
 // Si l'utilisateur est connecté alors on ajoute des éléments à la page
 const myToken = localStorage.getItem('token');
-console.log(myToken);
-
 
 function userConnected() {
     if(myToken === localStorage.token) {
@@ -106,7 +107,6 @@ function toggleModalImage(e) {
 }
 
 
-
 // Générer les projets dans la galerie
 function generateModalGallery(works) {
     for (let i = 0; i < works.length; i++) {
@@ -145,17 +145,16 @@ function generateModalGallery(works) {
         iconTrash.addEventListener("click", async (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const iconTrash = article.id;
-            console.log(iconTrash);
-            console.log(myToken);
+            const articleId = article.id;
             const response = await fetch(
-                `http://localhost:5678/api/works/${iconTrash}`, {
+                `http://localhost:5678/api/works/${articleId}`, {
                 method: "DELETE",
                 headers: {
                     accept: "*/*",
                     Authorization: `Bearer ${myToken}`,
                 },
             });
+            modalGallery.removeChild(workElement);
         });
     }
 }
@@ -165,9 +164,9 @@ generateModalGallery(works);
 // Envoyer nouveau projet
 
 const sendFormImage = document.querySelector(".form-add-image");
-sendFormImage.addEventListener("submit", sendNewWork);
+const displayImage = document.querySelector(".display-image");
 
-async function sendNewWork(event) {
+sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     event.preventDefault();
 
     const imageData = document.querySelector(".addImage-btn");
@@ -178,26 +177,14 @@ async function sendNewWork(event) {
     const newImage = imageData.files[0];
     console.log(newImage);
 
-    // Test si la taille du fichier est trop volumineux   
-    if(newImage.size > 4e+6){
-        alert("Le fichier est trop volumineux!");
-    };
-
 
     const formData = new FormData();
 
     formData.append("image", newImage);
     formData.append("title", titleData);
     formData.append("category", newDataObject);
-
-    // const data = Object.fromEntries(formData);
-    // console.log(data);
-
-    for (var key of formData.entries()) {
-        console.log(key[0] + ', ' + key[1])
-    }
-    
-
+        
+        
  const response = await fetch('http://localhost:5678/api/works', {
         method: "POST",
         headers: {
@@ -206,36 +193,58 @@ async function sendNewWork(event) {
         body: formData,
     });
     const result = await response.json();
-    console.log(result);
-
-
-    const img = document.createElement('img');
-    img.src = URL.createObjectURL(imageData);
-    workElement.appendChild(img);
     
-    // // Transforme l'objet de la requête en chaine de caractère
-    // let resultStringified = JSON.stringify(result);
+    // Ajout du nouveau projet dans la galerie
+           
+    const divGallery = document.querySelector(".gallery");
 
-    // // Enregistre la réponse dans le local storage
-    // localStorage.setItem('dataForm', resultStringified);
+    const newWorkElement = document.createElement("figure");
 
-    // // Transforme en objet et récupère l'userId et le token du local storage 
-    // const getData = JSON.parse(localStorage.getItem('dataForm'));
-    // console.log(getData.userId);
+    const newImageAdded = document.createElement("img");
+    newImageAdded.src = result.imageUrl;
+
+    const titleMainPage = document.createElement("figcaption");
+    titleMainPage.innerText = result.title;
+    
+    divGallery.appendChild(newWorkElement);
+    newWorkElement.appendChild(newImageAdded);
+    newWorkElement.appendChild(titleMainPage);
+
+    // Ajout du nouveau projet dans la galerie Modal
+     
+    const modalGallery = document.querySelector(".modal-gallery");
+
+    const workElement = document.createElement("figure");
+
+    const divElement = document.createElement("div");
+    divElement.className += "divGallery";
+            
+    const imageAdded = document.createElement("img");
+    imageAdded.src = result.imageUrl;
+    imageAdded.className += "galleryImg";
+
+    const iconCross = document.createElement('icon');
+    iconCross.className += "fa-solid fa-arrows-up-down-left-right";
+
+    const iconTrash = document.createElement("icon");
+    iconTrash.className += "fa-solid fa-trash-can";
+
+    const titleElement = document.createElement("figcaption");
+    titleElement.innerText = "éditer";
+        
+    modalGallery.appendChild(workElement);
+    workElement.appendChild(divElement);           
+    divElement.appendChild(imageAdded);
+    divElement.appendChild(iconCross);
+    divElement.appendChild(iconTrash);
+    divElement.appendChild(titleElement); 
+
+    imageData.value = "";
+    document.querySelector(".display-image").style.display = "none";
+    sendFormImage.reset();   
+});
 
 
-    // Vérification de la connexion utilisateur
-    // try {
-    //     if(getData.userId === 1) {
-    //             document.location.href="index.html"; 
-    //     } else {
-    //         throw new Error("mauvais identifiants");
-    //     } 
-    // } catch (error) {
-    //     window.alert("Erreur dans l’identifiant ou le mot de passe");
-    // }
-}
-sendNewWork();
 
 
 // Afficher le fichier sélectionné dans la modale photo
@@ -244,15 +253,36 @@ const image_input = document.querySelector(".addImage-btn");
 let uploaded_image = "";
 
 image_input.addEventListener("change", function() {
+    validationFile();
     const reader = new FileReader();
     reader.addEventListener("load", () => {
         uploaded_image = reader.result;
         document.querySelector(".display-image").style.backgroundImage = `url(${uploaded_image})`;
-        document.querySelector(".display-image").style.zIndex = 2;
+        document.querySelector(".display-image").style.display = "flex";
     });
     reader.readAsDataURL(this.files[0]);
 })
-console.log(uploaded_image);
+
+
+   
+// Test si la taille et le format du fichier sont correct 
+    
+function validationFile() {
+    const imageData = document.querySelector(".addImage-btn");
+    const fileSizeAlert = document.querySelector(".errorMessage");
+    const newImage = imageData.files[0]; 
+    const allowedExtensions = /(\.jpg|\.png)$/i;
+    if(newImage.size > 4e+6){
+        fileSizeAlert.innerText = "Le fichier est trop volumineux !";
+        imageData.value = "";
+    }else if (!allowedExtensions.exec(imageData.value))  {
+        fileSizeAlert.innerText = "Le fichier n'est pas au bon format !";
+        imageData.value = "";
+    }else {
+        fileSizeAlert.innerText = "";
+        return false;
+    }
+}
 
 
 

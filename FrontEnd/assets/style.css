@@ -227,7 +227,7 @@ li:hover {
 
 .modal-gallery {
 	width: 470px;
-	height: auto;
+	height: 420px;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
@@ -407,13 +407,13 @@ hr {
 	height: 180px;
 	background-size: 100%;
 	background-position: center;
-	z-index: -1;
+	display: none;
 }
 
 .fa-image {
 	color: #B9C5CC;
 	font-size: 55px;
-	margin: 20px 20px 30px 20px;
+	margin: 30px 20px 20px 20px;
 }
 
 input[type=file] {
@@ -429,8 +429,8 @@ input[type=file] {
 	font-size: 14px;
 	border: none;
 	text-align: center;
-	padding: 12px 40px;
-	width: 180px;
+	padding: 12px 30px;
+	width: 120px;
 	cursor: pointer;
 }
 
@@ -443,8 +443,18 @@ input[type=file] {
 	color: #444444;
 	font-family:'Work Sans';
 	font-size: 11px;
-	margin-top: 22px;
+	margin-top: 10px;
 }
+
+.errorMessage {
+	display: flex;
+	justify-content: center;
+	color: #B1663C;
+	font-family: 'Work Sans';
+	margin-top: 10px;
+	font-size: 14px;
+}
+
 
 /* Section input add image */
 
@@ -454,6 +464,8 @@ input[type=file] {
 	color: #3D3D3D;
 	margin-top: 35px;
 	width: 430px;
+	display: flex;
+	flex-direction: column;
 }
 
 .form-add-image {

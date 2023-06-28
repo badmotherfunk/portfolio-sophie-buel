@@ -36,9 +36,9 @@
                 <h2 class="login-title">Log In</h2>
                 <form class="form-container" action="http://localhost:5678/api/users/login" method="post">
                     <label class="input-title" for="email">E-mail</label>
-                    <input class="input-connexion email" type="email" id="email" name="email" required>
+                    <input class="input-connexion email" type="email" id="email" name="email" maxlength="50" required>
                     <label class="input-title" for="password">Mot de passe</label>
-                    <input class="input-connexion password" type="password" id="password" name="password" required>
+                    <input class="input-connexion password" type="password" id="password" name="password" maxlength="30" required>
                     <div class="btn-container">
                         <button class="btn-connexion" type="submit" >Se connecter</button>
                         <a href="#">Mot de passe oublié</a>
