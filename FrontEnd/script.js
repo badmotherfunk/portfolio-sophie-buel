@@ -11,6 +11,7 @@ const buttonHostel = document.querySelector(".hotels");
 const divGallery = document.querySelector(".gallery");
 const modalGallery = document.querySelector('.modal-gallery');
 
+
 // Pour chaque bouton on filtre les projets en fonction de leurs Id
 filterLink.forEach( function (i) {
     i.addEventListener("click", function (event) {
@@ -54,9 +55,11 @@ function generateWorks(works) {
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = article.title;
 
+
         divGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
         workElement.appendChild(titleElement);
+
 
     }
 }
@@ -107,13 +110,14 @@ function toggleModalImage(e) {
 }
 
 
-// Générer les projets dans la galerie
+// Générer les projets dans la galerie modal
 function generateModalGallery(works) {
     for (let i = 0; i < works.length; i++) {
 
         const article = works[i];
 
         const modalGallery = document.querySelector('.modal-gallery');
+        console.log(modalGallery);
 
         const workElement = document.createElement("figure");
 
@@ -146,6 +150,7 @@ function generateModalGallery(works) {
             e.preventDefault();
             e.stopPropagation();
             const articleId = article.id;
+            console.log(articleId);
             const response = await fetch(
                 `http://localhost:5678/api/works/${articleId}`, {
                 method: "DELETE",
@@ -155,6 +160,8 @@ function generateModalGallery(works) {
                 },
             });
             modalGallery.removeChild(workElement);
+            divGallery.removeChild(workElement);
+            
         });
     }
 }
@@ -162,7 +169,6 @@ generateModalGallery(works);
 
 
 // Envoyer nouveau projet
-
 const sendFormImage = document.querySelector(".form-add-image");
 const displayImage = document.querySelector(".display-image");
 
@@ -175,8 +181,6 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     const newDataObject = parseInt(objectData);
 
     const newImage = imageData.files[0];
-    console.log(newImage);
-
 
     const formData = new FormData();
 
@@ -194,8 +198,7 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     });
     const result = await response.json();
     
-    // Ajout du nouveau projet dans la galerie
-           
+    // Ajout du nouveau projet dans la galerie         
     const divGallery = document.querySelector(".gallery");
 
     const newWorkElement = document.createElement("figure");
@@ -210,8 +213,8 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     newWorkElement.appendChild(newImageAdded);
     newWorkElement.appendChild(titleMainPage);
 
-    // Ajout du nouveau projet dans la galerie Modal
-     
+
+    // Ajout du nouveau projet dans la galerie Modal   
     const modalGallery = document.querySelector(".modal-gallery");
 
     const workElement = document.createElement("figure");
@@ -219,9 +222,9 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     const divElement = document.createElement("div");
     divElement.className += "divGallery";
             
-    const imageAdded = document.createElement("img");
-    imageAdded.src = result.imageUrl;
-    imageAdded.className += "galleryImg";
+    const imageElement = document.createElement("img");
+    imageElement.src = result.imageUrl;
+    imageElement.className += "galleryImg";
 
     const iconCross = document.createElement('icon');
     iconCross.className += "fa-solid fa-arrows-up-down-left-right";
@@ -234,7 +237,7 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
         
     modalGallery.appendChild(workElement);
     workElement.appendChild(divElement);           
-    divElement.appendChild(imageAdded);
+    divElement.appendChild(imageElement);
     divElement.appendChild(iconCross);
     divElement.appendChild(iconTrash);
     divElement.appendChild(titleElement); 
@@ -246,9 +249,7 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
 
 
 
-
 // Afficher le fichier sélectionné dans la modale photo
-
 const image_input = document.querySelector(".addImage-btn");
 let uploaded_image = "";
 
@@ -265,8 +266,7 @@ image_input.addEventListener("change", function() {
 
 
    
-// Test si la taille et le format du fichier sont correct 
-    
+// Test si la taille et le format du fichier sont correct    
 function validationFile() {
     const imageData = document.querySelector(".addImage-btn");
     const fileSizeAlert = document.querySelector(".errorMessage");
@@ -283,6 +283,24 @@ function validationFile() {
         return false;
     }
 }
+
+
+// Changer la couleur du bouton d'envoi si les inputs sont remplis
+const formImage = document.querySelector('.form-add-image');
+const imageData = document.querySelector(".addImage-btn");
+const titleData = document.querySelector(".inputText");
+const inputSelect = document.querySelector("#image-category");
+
+formImage.addEventListener("change", checkInput);
+
+function checkInput() {
+    if(imageData.value && titleData.value && inputSelect.value !== "") {
+        document.querySelector(".add-image-button").style.backgroundColor = "#1D6154";
+    } else {
+        document.querySelector('.add-image-button').style.backgroundColor = "#A7A7A7"; 
+    }
+}
+checkInput();
 
 
 
