@@ -9,7 +9,7 @@ const buttonAppartment = document.querySelector(".appartements");
 const buttonHostel = document.querySelector(".hotels");
 
 const divGallery = document.querySelector(".gallery");
-const modalGallery = document.querySelector('.modal-gallery');
+const modalGallery = document.querySelector(".modal-gallery");
 
 
 // Pour chaque bouton on filtre les projets en fonction de leurs Id
@@ -43,24 +43,21 @@ buttonAll.addEventListener("click", function() {
 function generateWorks(works) {
     for (let i = 0; i < works.length; i++) {
 
-        const article = works[i];
-
-        const divGallery = document.querySelector(".gallery");
+        const work = works[i];
 
         const workElement = document.createElement("figure");
-
+        workElement.className = "workElement";
+        workElement.setAttribute("data-id", work.id);
+    
         const imageElement = document.createElement("img");
-        imageElement.src = article.imageUrl;
+        imageElement.src = work.imageUrl;
 
         const titleElement = document.createElement("figcaption");
-        titleElement.innerText = article.title;
-
+        titleElement.innerText = work.title;
 
         divGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
         workElement.appendChild(titleElement);
-
-
     }
 }
 generateWorks(works);
@@ -97,6 +94,7 @@ function toggleModal() {
    modalContainer.classList.toggle("active");
 }
 
+
 // Toggle modale ajout photo
 const modalImage = document.querySelector(".modal-container-image");
 const addImage = document.querySelectorAll(".trigger-modale-image");
@@ -109,23 +107,22 @@ function toggleModalImage(e) {
     modalContainer.classList.toggle("active");
 }
 
-
 // Générer les projets dans la galerie modal
 function generateModalGallery(works) {
     for (let i = 0; i < works.length; i++) {
 
-        const article = works[i];
-
-        const modalGallery = document.querySelector('.modal-gallery');
-        console.log(modalGallery);
+        const work = works[i];
 
         const workElement = document.createElement("figure");
+        // workElement.className += "workElement";
+        workElement.setAttribute("id", work.id);
+
 
         const divElement = document.createElement("div");
         divElement.className += "divGallery";
 
         const imageElement = document.createElement("img");
-        imageElement.src = article.imageUrl;
+        imageElement.src = work.imageUrl;
         imageElement.className += "galleryImg";
 
         const iconCross = document.createElement('icon');
@@ -133,6 +130,10 @@ function generateModalGallery(works) {
 
         const iconTrash = document.createElement("icon");
         iconTrash.className += "fa-solid fa-trash-can";
+        iconTrash.value = work.id;
+        iconTrash.setAttribute("id", work.id);
+  
+        iconTrash.addEventListener("click", deleteWorks);
 
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = "éditer";
@@ -143,29 +144,42 @@ function generateModalGallery(works) {
         divElement.appendChild(iconCross);
         divElement.appendChild(iconTrash);
         workElement.appendChild(titleElement);
-        
-
-        // Supprimer un projet depuis la galerie
-        iconTrash.addEventListener("click", async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const articleId = article.id;
-            console.log(articleId);
-            const response = await fetch(
-                `http://localhost:5678/api/works/${articleId}`, {
-                method: "DELETE",
-                headers: {
-                    accept: "*/*",
-                    Authorization: `Bearer ${myToken}`,
-                },
-            });
-            modalGallery.removeChild(workElement);
-            divGallery.removeChild(workElement);
-            
-        });
     }
 }
 generateModalGallery(works);
+
+
+// Supprimer un projet depuis la galerie
+async function deleteWorks(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const workId = this.id;
+    console.log(workId);
+  
+    const response = await fetch(
+    `http://localhost:5678/api/works/${workId}`, {
+        method: "DELETE",
+        headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${myToken}`,
+        },
+    });
+
+    try {
+        if(response.ok){
+            const dataId = document.querySelector('[data-id="' + workId + '"]');
+            dataId.remove();
+            const elementId = document.getElementById(`${workId}`);
+            elementId.remove();  
+        } else {
+            throw new Error("Requête échouée");
+        } 
+    } catch (error) {
+        window.alert("La requête a échouée :(");
+    }
+
+}
 
 
 // Envoyer nouveau projet
@@ -196,18 +210,19 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
         },
         body: formData,
     });
-    const result = await response.json();
+    const work = await response.json();
     
     // Ajout du nouveau projet dans la galerie         
-    const divGallery = document.querySelector(".gallery");
 
     const newWorkElement = document.createElement("figure");
+    newWorkElement.setAttribute("data-id", work.id);
+    console.log(newWorkElement)
 
     const newImageAdded = document.createElement("img");
-    newImageAdded.src = result.imageUrl;
+    newImageAdded.src = work.imageUrl;
 
     const titleMainPage = document.createElement("figcaption");
-    titleMainPage.innerText = result.title;
+    titleMainPage.innerText = work.title;
     
     divGallery.appendChild(newWorkElement);
     newWorkElement.appendChild(newImageAdded);
@@ -215,15 +230,17 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
 
 
     // Ajout du nouveau projet dans la galerie Modal   
-    const modalGallery = document.querySelector(".modal-gallery");
 
     const workElement = document.createElement("figure");
+    workElement.setAttribute("id", work.id);
+    console.log(workElement)
+  
 
     const divElement = document.createElement("div");
     divElement.className += "divGallery";
             
     const imageElement = document.createElement("img");
-    imageElement.src = result.imageUrl;
+    imageElement.src = work.imageUrl;
     imageElement.className += "galleryImg";
 
     const iconCross = document.createElement('icon');
@@ -231,6 +248,10 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
 
     const iconTrash = document.createElement("icon");
     iconTrash.className += "fa-solid fa-trash-can";
+    iconTrash.setAttribute("id", work.id);
+    console.log(iconTrash)
+
+    iconTrash.addEventListener("click", deleteWorks);
 
     const titleElement = document.createElement("figcaption");
     titleElement.innerText = "éditer";
@@ -248,7 +269,6 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
 });
 
 
-
 // Afficher le fichier sélectionné dans la modale photo
 const image_input = document.querySelector(".addImage-btn");
 let uploaded_image = "";
@@ -263,9 +283,8 @@ image_input.addEventListener("change", function() {
     });
     reader.readAsDataURL(this.files[0]);
 })
+ 
 
-
-   
 // Test si la taille et le format du fichier sont correct    
 function validationFile() {
     const imageData = document.querySelector(".addImage-btn");
