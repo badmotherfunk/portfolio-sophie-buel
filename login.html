@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Log In</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./FrontEnd/assets/style.css">
+    <link rel="stylesheet" href="./FrontEnd/assets/login.css">
+</head>
+<body>
+    <div class="main-container">
+
+        <header>
+            <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+            <nav>
+                <ul>
+                    <a href="./index.html">
+                        <li>projets</li>
+                    </a>
+                    <a href="./index.html#contact">
+                        <li>contact</li>
+                    </a>
+                    <a href="login.html">
+                        <li class="modal-btn modal-trigger">login</li>
+                    </a>
+                    <li><img src="./FrontEnd/assets/icons/instagram.png" alt="Instagram"></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="container-login">
+                <h2 class="login-title">Log In</h2>
+                <form class="form-container" action="http://localhost:5678/api/users/login" method="post">
+                    <label class="input-title" for="email">E-mail</label>
+                    <input class="input-connexion email" type="email" id="email" name="email" maxlength="50" required>
+                    <label class="input-title" for="password">Mot de passe</label>
+                    <input class="input-connexion password" type="password" id="password" name="password" maxlength="30" required>
+                    <div class="btn-container">
+                        <button class="btn-connexion" type="submit" >Se connecter</button>
+                        <a href="#">Mot de passe oublié</a>
+                    </div>    
+                </form>
+            </div>
+        </main>
+        
+        <footer class="login-footer">
+            <nav>
+                <ul>
+                    <li>Mentions Légales</li>
+                </ul>
+            </nav>
+        </footer>
+        
+    </div>
+    <script src="./FrontEnd/logins.js"></script>
+</body>
+</html>
