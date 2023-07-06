@@ -32,13 +32,6 @@ filterLink.forEach( function (i) {
 
 })
 
-// Revenir à l'état de la gallery par défaut (Tous)
-buttonAll.addEventListener("click", function() {
-    document.querySelector(".gallery").innerHTML = "";
-    generateWorks(works);
-});
-
-
 // Affiche et créé tous les travaux et éléments sur la page
 function generateWorks(works) {
     for (let i = 0; i < works.length; i++) {
