@@ -270,7 +270,9 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
 
     imageData.value = "";
     document.querySelector(".display-image").style.display = "none";
-    sendFormImage.reset();   
+    sendFormImage.reset();
+    document.querySelector(".add-image-button").style.backgroundColor  = "#A7A7A7"; 
+    document.querySelector(".modal-container-image").style.display = "none";
 });
 
 
