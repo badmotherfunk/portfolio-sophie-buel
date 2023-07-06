@@ -88,11 +88,9 @@ function userConnected() {
             document.location.href="../index.html";
         });
     }
-
 }
 userConnected();
   
-
 
 // Toggle modale Galerie
 const modalContainer = document.querySelector(".modal-container");

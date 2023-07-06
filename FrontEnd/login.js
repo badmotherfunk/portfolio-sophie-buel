@@ -17,10 +17,12 @@ async function sendForm(event) {
         },
         body: jsonData
     })
+
     const result = await response.json();
 
     // Enregistre la réponse dans le local storage
     localStorage.setItem('token', result.token);
+
 
     // Vérification de la connexion utilisateur
     try {
