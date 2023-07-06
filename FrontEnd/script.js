@@ -75,13 +75,23 @@ function userConnected() {
         const modify = document.querySelector('.modify-container');
         modify.classList.add('active');
 
-        document.querySelector('.logIn').innerText = "logout";
+        const logout = document.querySelector('.logIn');
+        logout.innerText = "logout";
+        
+        // Déconnexion de l'utilisateur 
+        logout.addEventListener("click", (event) => { 
+            event.preventDefault();          
+            localStorage.removeItem("token");
+            document.location.href="index.html";
+        });
 
         const removeBtn = document.querySelector('.btn-filter');
         removeBtn.remove();
     }
+
 }
 userConnected();
+  
 
 
 // Toggle modale Galerie
