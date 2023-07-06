@@ -272,6 +272,7 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     sendFormImage.reset();
     document.querySelector(".add-image-button").style.backgroundColor  = "#A7A7A7"; 
     toggleModal();
+    toggleModalImage();
 });
 
 
