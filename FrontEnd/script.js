@@ -109,8 +109,7 @@ const addImage = document.querySelectorAll(".trigger-modale-image");
 
 addImage.forEach(trigger => trigger.addEventListener("click", toggleModalImage));
 
-function toggleModalImage(e) {
-    e.preventDefault();
+function toggleModalImage() {
     modalImage.classList.toggle("active");
     modalContainer.classList.toggle("active");
 }
@@ -272,6 +271,7 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     document.querySelector(".display-image").style.display = "none";
     sendFormImage.reset();
     document.querySelector(".add-image-button").style.backgroundColor  = "#A7A7A7"; 
+    toggleModalImage();
 });
 
 
