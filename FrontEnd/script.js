@@ -75,6 +75,9 @@ function userConnected() {
         const modify = document.querySelector('.modify-container');
         modify.classList.add('active');
 
+        const removeBtn = document.querySelector('.btn-filter');
+        removeBtn.remove();
+
         const logout = document.querySelector('.logIn');
         logout.innerText = "logout";
         
@@ -84,9 +87,6 @@ function userConnected() {
             localStorage.removeItem("token");
             document.location.href="index.html";
         });
-
-        const removeBtn = document.querySelector('.btn-filter');
-        removeBtn.remove();
     }
 
 }
@@ -124,7 +124,6 @@ function generateModalGallery(works) {
         const work = works[i];
 
         const workElement = document.createElement("figure");
-        // workElement.className += "workElement";
         workElement.setAttribute("id", work.id);
 
 
@@ -223,7 +222,6 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     const work = await response.json();
     
     // Ajout du nouveau projet dans la galerie         
-
     const newWorkElement = document.createElement("figure");
     newWorkElement.setAttribute("data-id", work.id);
     console.log(newWorkElement)
@@ -240,7 +238,6 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
 
 
     // Ajout du nouveau projet dans la galerie Modal   
-
     const workElement = document.createElement("figure");
     workElement.setAttribute("id", work.id);
     console.log(workElement)

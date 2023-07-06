@@ -1,6 +1,8 @@
 const loginForm = document.querySelector(".form-container");
 loginForm.addEventListener("submit", sendForm);
 
+
+//Envoyer les données de connexion à l'API
 async function sendForm(event) {
     event.preventDefault();
 
