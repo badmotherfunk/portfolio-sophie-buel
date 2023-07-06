@@ -85,7 +85,7 @@ function userConnected() {
         logout.addEventListener("click", (event) => { 
             event.preventDefault();          
             localStorage.removeItem("token");
-            document.location.href="index.html";
+            document.location.href="../index.html";
         });
     }
 

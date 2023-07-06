@@ -28,7 +28,7 @@ async function sendForm(event) {
     // Vérification de la connexion utilisateur
     try {
         if(response.status === 200) {
-                document.location.href="index.html"; 
+                document.location.href="../index.html"; 
         } else {
             throw new Error("mauvais identifiants");
         } 
