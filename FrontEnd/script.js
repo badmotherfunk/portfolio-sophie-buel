@@ -272,8 +272,6 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     document.querySelector(".display-image").style.display = "none";
     sendFormImage.reset();
     document.querySelector(".add-image-button").style.backgroundColor  = "#A7A7A7"; 
-    document.querySelector(".overlay").style.display = "none";
-    document.querySelector(".modal-container-image").style.display = "none";
 });
 
 
