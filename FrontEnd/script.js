@@ -1,8 +1,6 @@
 const response = await fetch('http://localhost:5678/api/works');
 const works = await response.json();
 
-const filterLink = document.querySelectorAll(".btn-link");
-
 const buttonAll = document.querySelector(".tous");
 const buttonObjects = document.querySelector(".objets");
 const buttonAppartment = document.querySelector(".appartements");
@@ -10,27 +8,71 @@ const buttonHostel = document.querySelector(".hotels");
 
 const divGallery = document.querySelector(".gallery");
 const modalGallery = document.querySelector(".modal-gallery");
+const btnFilter = document.querySelector(".btn-filter");
+
+
+// Création des boutons filtres sur la page
+const resp = await fetch('http://localhost:5678/api/categories');
+const categories = await resp.json();
+
+function btnAll() {
+    const btnLink = document.createElement('a');
+    btnLink.className += 'btn-link';
+    btnLink.href = "#";
+    btnLink.setAttribute("id", 0);
+
+    const divBtn = document.createElement('div');
+    divBtn.innerText = "Tous";
+
+    btnFilter.appendChild(btnLink);
+    btnLink.appendChild(divBtn);
+}
+btnAll();
+
+function generateButton(categories) {
+    for(let i = 0; i < categories.length; i++) {
+
+        const category = categories[i];
+
+        const btnLink = document.createElement('a');
+        btnLink.className += 'btn-link';
+        btnLink.href = "#";
+        btnLink.setAttribute("id", category.id);
+
+        const divBtn = document.createElement('div');
+        divBtn.innerText = category.name;
+
+        btnFilter.appendChild(btnLink);
+        btnLink.appendChild(divBtn);
+
+    }
+}
+generateButton(categories);
 
 
 // Pour chaque bouton on filtre les projets en fonction de leurs Id
+const filterLink = document.querySelectorAll(".btn-link");
+
 filterLink.forEach( function (i) {
     i.addEventListener("click", function (event) {
         event.preventDefault();
 
+        const btnId = +this.id;
+
         function allWorks() {
-            if(+i.dataset.categoryid === 0)
+            if(+btnId === 0)
             return generateWorks(works);
         }
 
         const filtered = works.filter( function (object) {
-            return object.category.id === +i.dataset.categoryid;
+            return object.category.id === btnId;
         })
         document.querySelector(".gallery").innerHTML = "";
         allWorks();
         generateWorks(filtered);
     });
-
 })
+
 
 // Affiche et créé tous les travaux et éléments sur la page
 function generateWorks(works) {
@@ -154,18 +196,16 @@ async function deleteWorks(event) {
     event.stopPropagation();
 
     const workId = this.id;
-    console.log(workId);
   
-    const response = await fetch(
-    `http://localhost:5678/api/works/${workId}`, {
-        method: "DELETE",
-        headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${myToken}`,
-        },
-    });
-
     try {
+        const response = await fetch(
+        `http://localhost:5678/api/works/${workId}`, {
+            method: "DELETE",
+            headers: {
+                accept: "*/*",
+                Authorization: `Bearer ${myToken}`,
+            },
+        });           
         if(response.ok){
             const dataId = document.querySelector('[data-id="' + workId + '"]');
             dataId.remove();
@@ -177,7 +217,6 @@ async function deleteWorks(event) {
     } catch (error) {
         window.alert("La requête a échouée :(");
     }
-
 }
 
 
@@ -214,7 +253,6 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     // Ajout du nouveau projet dans la galerie         
     const newWorkElement = document.createElement("figure");
     newWorkElement.setAttribute("data-id", work.id);
-    console.log(newWorkElement)
 
     const newImageAdded = document.createElement("img");
     newImageAdded.src = work.imageUrl;
@@ -230,9 +268,7 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     // Ajout du nouveau projet dans la galerie Modal   
     const workElement = document.createElement("figure");
     workElement.setAttribute("id", work.id);
-    console.log(workElement)
   
-
     const divElement = document.createElement("div");
     divElement.className += "divGallery";
             
@@ -246,7 +282,6 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
     const iconTrash = document.createElement("icon");
     iconTrash.className += "fa-solid fa-trash-can";
     iconTrash.setAttribute("id", work.id);
-    console.log(iconTrash)
 
     iconTrash.addEventListener("click", deleteWorks);
 
@@ -304,6 +339,25 @@ function validationFile() {
 }
 
 
+// Création des options pour le select de la modal "Ajout Photo"
+const select = document.querySelector("#image-category");
+
+function generateOptions(categories) {
+    for(let i = 0; i < categories.length; i++) {
+
+        const category = categories[i];
+
+        const options = document.createElement('option');
+        options.setAttribute("name", category.name);
+        options.setAttribute("value", category.id);
+        options.innerText = category.name;
+
+        select.appendChild(options);
+    }
+}
+generateOptions(categories);
+
+
 // Changer la couleur du bouton d'envoi si les inputs sont remplis
 const formImage = document.querySelector('.form-add-image');
 const imageData = document.querySelector(".addImage-btn");
@@ -319,7 +373,7 @@ function checkInput() {
         document.querySelector('.add-image-button').style.backgroundColor = "#A7A7A7"; 
     }
 }
-checkInput();
+
 
 
 
