@@ -345,7 +345,7 @@ const select = document.querySelector("#image-category");
 
 function generateOptions(categories) {
     const selectOption = document.createElement('option');
-    selectOption.innerText = 'Veuillez selectionner une catégorie';
+    selectOption.innerText = 'Veuillez sélectionner une catégorie';
     selectOption.value = "";
     select.appendChild(selectOption);
 
@@ -359,7 +359,7 @@ function generateOptions(categories) {
         options.innerText = category.name;
 
         select.appendChild(options);
-        document.querySelector("#image-category").options[0].disabled = true;
+        select.options[0].disabled = true;
     }
 }
 generateOptions(categories);
