@@ -60,7 +60,7 @@ filterLink.forEach( function (i) {
         const btnId = +this.id;
 
         function allWorks() {
-            if(+btnId === 0)
+            if(btnId === 0)
             return generateWorks(works);
         }
 
