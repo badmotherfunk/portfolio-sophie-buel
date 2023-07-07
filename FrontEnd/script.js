@@ -10,7 +10,6 @@ const divGallery = document.querySelector(".gallery");
 const modalGallery = document.querySelector(".modal-gallery");
 const btnFilter = document.querySelector(".btn-filter");
 
-
 // Création des boutons filtres sur la page
 const resp = await fetch('http://localhost:5678/api/categories');
 const categories = await resp.json();
@@ -249,6 +248,7 @@ sendFormImage.addEventListener("submit", async function sendNewWork(event) {
         body: formData,
     });
     const work = await response.json();
+    console.log(work)
     
     // Ajout du nouveau projet dans la galerie         
     const newWorkElement = document.createElement("figure");
@@ -343,6 +343,11 @@ function validationFile() {
 const select = document.querySelector("#image-category");
 
 function generateOptions(categories) {
+    const selectOption = document.createElement('option');
+    selectOption.innerText = 'Veuillez selectionner une catégorie';
+    selectOption.value = "";
+    select.appendChild(selectOption);
+
     for(let i = 0; i < categories.length; i++) {
 
         const category = categories[i];
@@ -353,6 +358,7 @@ function generateOptions(categories) {
         options.innerText = category.name;
 
         select.appendChild(options);
+        document.querySelector("#image-category").options[0].disabled = true;
     }
 }
 generateOptions(categories);
